@@ -1,9 +1,11 @@
 import { Routes as Router, Route, Navigate, Outlet } from "react-router-dom";
 import { SignIn, Chat } from "pages";
 import { useAuth } from "hooks";
+import { AuthContext } from "context";
+import { useContext } from "react";
 
 const PrivateRoutes = () => {
-  const { userInfo } = useAuth();
+  const { userInfo } = useContext(AuthContext);
 
   if (!userInfo) return <Navigate to="/" replace />;
 
