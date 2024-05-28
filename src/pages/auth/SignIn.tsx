@@ -9,8 +9,6 @@ import {
 } from "react";
 import { useNavigate } from "react-router";
 
-import reactLogo from "assets/react.svg";
-
 const SignIn = (): ReactElement => {
   const navigate = useNavigate();
 
@@ -48,25 +46,9 @@ const SignIn = (): ReactElement => {
   return (
     <div className={"flex"}>
       <div className={"flex flex-row items-center justify-center h-screen"}>
-        <div className={"grid grid-cols-2 xs:grid-cols-1 rounded-lg shadow-md"}>
-          <section className={"bg-purple-500 rounded-tl-lg rounded-bl-lg p-10"}>
-            <div className={"flex flex-col gap-4 justify-center items-center"}>
-              <img src={reactLogo} alt="React logo" className={"w-76 h-70"} />
-              <div className={"flex flex-col gap-2 items-center"}>
-                <h1 className={"text-3xl text-white font-bold"}>
-                  Welcome to React Chat App
-                </h1>
-              </div>
-            </div>
-          </section>
+        <div className={"rounded-lg shadow-md"}>
           <section className={"flex flex-col gap-4 p-10 justify-center"}>
-            <h2 className={"text-2xl font-bold"}>Sign in</h2>
-            <p className={"text-gray-500 text-lg"}>type username</p>
-            <div
-              className={
-                "text-gray-500 before:bg-orange-300 before:p-2 flex flex-row gap-4 bg-orange-100"
-              }
-            ></div>
+            <h2 className={"text-2xl font-bold"}>Sign in as</h2>
             <form
               onSubmit={handleFormOnSubmit}
               className={"flex flex-col gap-4"}
@@ -91,7 +73,7 @@ const SignIn = (): ReactElement => {
               <button
                 disabled={loading}
                 className={
-                  "bg-purple-500 text-white rounded-lg p-2 disabled:bg-purple-100"
+                  "bg-blue-500 text-white rounded-lg p-2 disabled:bg-blue-100"
                 }
               >
                 {loading ? (

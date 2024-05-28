@@ -1,20 +1,21 @@
-import { IUser, useAuth } from "hooks";
+import { useAuth } from "hooks";
 import { ReactNode, createContext } from "react";
+import { User } from "utils";
 
 type Props = {
   children?: ReactNode;
 };
 
 type IAuthContext = {
-  userInfo: IUser | null;
-  signIn: (_username: string) => Promise<IUser>;
+  userInfo: User | null;
+  signIn: (_username: string) => Promise<User>;
   signOut: () => void;
   loading: boolean;
 };
 
 const initialValue = {
-  userInfo: null as IUser | null,
-  signIn: (_username: string): Promise<IUser> => {
+  userInfo: null as User | null,
+  signIn: (_username: string): Promise<User> => {
     console.log(`Signing as ${_username}`);
     return new Promise((_resolve, reject) => {
       reject("Not implemented!");

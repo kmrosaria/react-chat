@@ -5,23 +5,14 @@ import {
 } from "firebase/auth";
 import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { auth, db } from "utils";
-
-interface IUser {
-  displayName: string;
-  status: string | "online";
-  uid: string;
-  createdAt: string;
-  avatar?: string;
-  email?: string;
-}
+import { User, auth, db } from "utils";
 
 const useAuth = () => {
-  const [userInfo, setUserInfo] = useState<IUser | null>(null);
+  const [userInfo, setUserInfo] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   const signIn = async (displayName: string) => {
-    return new Promise<IUser>((resolve, reject) => {
+    return new Promise<User>((resolve, reject) => {
       signInAnonymously(auth)
         .then((userCredential) => {
           const userRef = doc(db, "users", userCredential.user.uid);
@@ -38,8 +29,8 @@ const useAuth = () => {
             }).then(() => {
               getDoc(userRef).then((doc) => {
                 if (doc.exists()) {
-                  setUserInfo(doc.data() as IUser);
-                  resolve(doc.data() as IUser);
+                  setUserInfo(doc.data() as User);
+                  resolve(doc.data() as User);
                 } else {
                   setUserInfo(null);
                 }
@@ -66,7 +57,7 @@ const useAuth = () => {
         const userRef = doc(db, "users", user.uid);
         onSnapshot(userRef, (doc) => {
           if (doc.exists()) {
-            setUserInfo(doc.data() as IUser);
+            setUserInfo(doc.data() as User);
             setLoading(false);
           } else {
             setLoading(false);
@@ -93,4 +84,3 @@ const useAuth = () => {
 };
 
 export { useAuth };
-export type { IUser };
