@@ -23,8 +23,7 @@ const SignIn = (): ReactElement => {
     e.preventDefault();
     setLoading(true);
     if (username.length > 2) {
-      signIn(username).then((user) => {
-        console.log("user", user);
+      signIn(username).then(() => {
         setLoading(false);
         setUsername("");
         navigate("/chat");

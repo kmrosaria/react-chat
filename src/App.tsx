@@ -4,15 +4,18 @@
 // const SignIn = lazy(() =>
 //   import("./pages").then(({ SignIn }) => ({ default: SignIn }))
 // );
+import { AuthProvider } from "context";
 import Routes from "./Routes";
 import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Routes />
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes />
+        </BrowserRouter>
+      </AuthProvider>
     </>
   );
 }
