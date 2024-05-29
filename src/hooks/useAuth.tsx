@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { User, auth, db } from "utils";
 
 const useAuth = () => {
-  const [userInfo, setUserInfo] = useState<User | null>(null);
+  const [userInfo, setUserInfo] = useState<User>();
   const [loading, setLoading] = useState<boolean>(true);
 
   const signIn = async (displayName: string) => {
@@ -32,7 +32,7 @@ const useAuth = () => {
                   setUserInfo(doc.data() as User);
                   resolve(doc.data() as User);
                 } else {
-                  setUserInfo(null);
+                  setUserInfo(undefined);
                 }
               });
             });
@@ -46,7 +46,7 @@ const useAuth = () => {
 
   const signOut = () => {
     auth.signOut().then(() => {
-      setUserInfo(null);
+      setUserInfo(undefined);
     });
   };
 
@@ -61,12 +61,12 @@ const useAuth = () => {
             setLoading(false);
           } else {
             setLoading(false);
-            setUserInfo(null);
+            setUserInfo(undefined);
           }
         });
       } else {
         setLoading(false);
-        setUserInfo(null);
+        setUserInfo(undefined);
       }
     });
 

@@ -7,16 +7,15 @@ type Props = {
 };
 
 type IAuthContext = {
-  userInfo: User | null;
+  userInfo: User | undefined;
   signIn: (_username: string) => Promise<User>;
   signOut: () => void;
   loading: boolean;
 };
 
 const initialValue = {
-  userInfo: null as User | null,
-  signIn: (_username: string): Promise<User> => {
-    console.log(`Signing as ${_username}`);
+  userInfo: undefined as User | undefined,
+  signIn: (): Promise<User> => {
     return new Promise((_resolve, reject) => {
       reject("Not implemented!");
     });

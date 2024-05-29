@@ -1,11 +1,12 @@
 export interface Message {
-    text?: string,
-    date: string,
-    attachment: {
-        type: string,
-        url: string,
-    } | null,
-    sender?: string,
-    receiver?: string,
-    owner?: string[]
+  text?: string;
+  createdAt: number;
+  attachment: {
+    type: string;
+    url: string;
+  } | null;
+  sender: {
+    uid: string;
+    displayName: string;
+  };
 }
