@@ -1,10 +1,10 @@
 import {
   DocumentData,
   QuerySnapshot,
-  addDoc,
+  // addDoc,
   collection,
   doc,
-  getDocs,
+  // getDocs,
   limit,
   onSnapshot,
   orderBy,
@@ -89,15 +89,18 @@ const useChat = () => {
       const chatRef = collection(db, "chats2");
       setDoc(doc(chatRef), message)
         .then(() => {
-          getDocs(chatRef).then((snapshot) => {
-            snapshot.forEach((item) => {
-              const messageRef = collection(db, "chats2", item.id, "message");
-              addDoc(messageRef, { message }).then(() => {
-                console.log("message send");
-                setScrollToLatest(true);
-              });
-            });
-          });
+          setScrollToLatest(true);
+          console.log("message send");
+
+          // getDocs(chatRef).then((snapshot) => {
+          //   snapshot.forEach((item) => {
+          //     const messageRef = collection(db, "chats2", item.id, "message");
+          //     addDoc(messageRef, { message }).then(() => {
+          //       console.log("message send");
+          //       setScrollToLatest(true);
+          //     });
+          //   });
+          // });
         })
         .catch((error) => {
           console.log(error);
