@@ -1,6 +1,6 @@
 import { useAuth, useChat } from "hooks";
-import { ReactElement, useEffect, useRef, useState } from "react";
-import { Message, User } from "utils";
+import { ReactElement, useState } from "react";
+import ChatBox from "./Chatbox";
 
 type MessageFormData = {
   text: string;
@@ -11,56 +11,10 @@ type MessageFormData = {
   } | null;
 };
 
-type MessageType = {
-  message: Message;
-  user: User | undefined;
-};
-
-const style = {
-  message: `flex items-center shadow-lg m-2
-     py-2 px-3 rounded-tl-full rounded-tr-full`,
-  name: `absolute mt-[-4rem]
-         text-gray-600 text-xs`,
-  sent: `bg-[#395dff] text-white flex-row-reverse 
-         text-end float-right rounded-bl-full`,
-  received: `bg-[#e5e5ea] text-black
-             float-left rounded-br-full`,
-};
-
-const MessageDiv = ({ message, user }: MessageType) => {
-  if (!user) {
-    return;
-  }
-
-  const messageClass =
-    message.sender.uid === user.uid ? `${style.sent}` : `${style.received}`;
-
-  return (
-    <div>
-      <div
-        className={`${style.message} 
-      ${messageClass}`}
-      >
-        <p className={style.name}>{message.sender.displayName}</p>
-
-        <p>{message.text}</p>
-      </div>
-    </div>
-  );
-};
-
 const Chat = (): ReactElement => {
   const [text, setText] = useState<string>("");
   const { userInfo } = useAuth();
-  const messagesRef = useRef<HTMLInputElement>(null);
-
-  const { sendMessage, messages, scrollToLatest } = useChat();
-
-  useEffect(() => {
-    if (scrollToLatest) {
-      messagesRef.current?.firstElementChild?.scrollIntoView();
-    }
-  }, [scrollToLatest, messages]);
+  const { sendMessage } = useChat();
 
   const handleSubmitMessage = (message: MessageFormData) => {
     if (userInfo) {
@@ -86,7 +40,7 @@ const Chat = (): ReactElement => {
   };
 
   return (
-    <div className={"flex flex-col gap-2 h-[90vh]"}>
+    <div className={"flex flex-col gap-2 h-[90vh] justify-center"}>
       <header className={`flex flex-col gap-4`}>
         <div
           className={
@@ -110,7 +64,7 @@ const Chat = (): ReactElement => {
                   }
                 >
                   <span className={"text-2xl font-bold text-black"}>
-                    {userInfo?.displayName?.charAt(0)}
+                    {userInfo?.displayName?.charAt(0).toUpperCase()}
                   </span>
                 </div>
               )}
@@ -132,21 +86,7 @@ const Chat = (): ReactElement => {
       </header>
 
       {/* Chat box */}
-      <div className="overflow-auto mr-[10px] mt-[10px]">
-        <div
-          className={"flex flex-col-reverse gap-2 relative"}
-          ref={messagesRef}
-        >
-          {messages &&
-            messages.map((msg) => (
-              <MessageDiv
-                key={`message-${msg.createdAt}`}
-                message={msg}
-                user={userInfo}
-              />
-            ))}
-        </div>
-      </div>
+      <ChatBox />
       {/* Chat input */}
 
       <div className={"flex flex-col gap-2"}>
