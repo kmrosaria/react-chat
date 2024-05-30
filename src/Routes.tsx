@@ -1,8 +1,10 @@
 import { Routes as Router, Route, Navigate, Outlet } from "react-router-dom";
-import { SignIn, Chat } from "pages";
 import { useAuth } from "hooks";
 import { AuthContext } from "context";
-import { useContext } from "react";
+import { lazy, useContext } from "react";
+
+const SignIn = lazy(() => import("./pages/auth/SignIn"));
+const Chat = lazy(() => import("./pages/chat/Chat"));
 
 const PrivateRoutes = () => {
   const { userInfo } = useContext(AuthContext);
