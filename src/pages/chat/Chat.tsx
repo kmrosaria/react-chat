@@ -13,7 +13,7 @@ type MessageFormData = {
 
 const Chat = (): ReactElement => {
   const [text, setText] = useState<string>("");
-  const { userInfo } = useAuth();
+  const { userInfo, signOut } = useAuth();
   const { sendMessage } = useChat();
 
   const handleSubmitMessage = (message: MessageFormData) => {
@@ -81,6 +81,33 @@ const Chat = (): ReactElement => {
                 {userInfo?.status}
               </span>
             </div>
+          </div>
+          <div className={"flex flex-col justify-end"}>
+            <button
+              className={
+                "bg-gray-100 border border-gray-300 hover:bg-gray-300 hover:bg-gray-300 p-[0.2em]"
+              }
+              onClick={() => {
+                signOut();
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+                fill="none"
+              >
+                <path
+                  d="M16.25 19C15.8358 19 15.5 18.3284 15.5 17.5C15.5 16.6716 15.8358 16 16.25 16C16.6642 16 17 16.6716 17 17.5C17 18.3284 16.6642 19 16.25 19Z"
+                  fill="#4F4D4C"
+                />
+                <path
+                  d="M19.7414 4.18341C19.9056 4.32587 20 4.53259 20 4.75V5.5H20.75C21.9926 5.5 23 6.50736 23 7.75V26.5H25.25C25.6642 26.5 26 26.8358 26 27.25C26 27.6642 25.6642 28 25.25 28H5.75C5.33579 28 5 27.6642 5 27.25C5 26.8358 5.33579 26.5 5.75 26.5H8V6.25C8 5.87677 8.27445 5.56033 8.64393 5.50754L19.1439 4.00754C19.3592 3.9768 19.5771 4.04096 19.7414 4.18341ZM20.75 7H20V26.5H21.5V7.75C21.5 7.33579 21.1642 7 20.75 7ZM9.5 6.90048V26.5H18.5V5.61476L9.5 6.90048Z"
+                  fill="#4F4D4C"
+                />
+              </svg>
+            </button>
           </div>
         </div>
       </header>

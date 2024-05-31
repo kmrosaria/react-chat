@@ -54,14 +54,11 @@ const SignIn = (): ReactElement => {
               className={"flex flex-col gap-4"}
             >
               <div className={"flex flex-col gap-2"}>
-                <label htmlFor={"username"} className={"text-lg text-gray-500"}>
-                  Username
-                </label>
                 <input
                   onChange={handleChangeUsername}
                   value={username}
                   required={true}
-                  placeholder={"Enter your username"}
+                  placeholder={"Enter your name"}
                   type={"text"}
                   id={"username"}
                   name={"username"}
