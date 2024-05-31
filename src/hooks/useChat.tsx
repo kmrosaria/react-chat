@@ -19,7 +19,6 @@ const useChat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [lastKey, setLastKey] = useState<number>(0);
   const [scrollToLatest, setScrollToLatest] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true);
   const [hasMore, setHasMore] = useState<boolean>(true);
 
   useEffect(() => {
@@ -37,8 +36,7 @@ const useChat = () => {
 
       setMessages(data);
       setScrollToLatest(true);
-      setLoading(false);
-      data.length > 0 ? setHasMore(true) : setHasMore(false);
+      setHasMore(data.length >= 15);
     };
     const messageRef = query(
       collection(db, "chats2"),
@@ -51,7 +49,6 @@ const useChat = () => {
   };
 
   const fetchNext = () => {
-    setLoading(true);
     const transformData = (snapshot: QuerySnapshot<DocumentData>) => {
       const data: Message[] = [];
       snapshot.forEach((document) => {
@@ -62,8 +59,7 @@ const useChat = () => {
 
       setMessages((messages) => [...messages, ...data]);
       setScrollToLatest(false);
-      setLoading(false);
-      data.length > 0 ? setHasMore(true) : setHasMore(false);
+      setHasMore(data.length > 0);
     };
     const messageRef = query(
       collection(db, "chats2"),
@@ -89,7 +85,6 @@ const useChat = () => {
       const chatRef = collection(db, "chats2");
       setDoc(doc(chatRef), message)
         .then(() => {
-          setScrollToLatest(true);
           console.log("message send");
 
           // getDocs(chatRef).then((snapshot) => {
@@ -113,8 +108,6 @@ const useChat = () => {
     fetchNext,
     messages,
     scrollToLatest,
-    loading,
-    lastKey,
     hasMore,
   };
 };

@@ -15,6 +15,13 @@ const ChatBox = () => {
     }
   }, [scrollToLatest, messages]);
 
+  const endMessage =
+    messages.length === 0
+      ? "Start conversation"
+      : messages.length > 10
+      ? "End of conversation"
+      : "";
+
   return (
     <div
       id="scrollableDiv"
@@ -25,11 +32,7 @@ const ChatBox = () => {
         next={fetchNext}
         hasMore={hasMore}
         loader={<p className="text-center m-5">Loading...</p>}
-        endMessage={
-          <p className="text-center m-5">{`${
-            messages.length === 0 ? `Start conversation` : `End of conversation`
-          }`}</p>
-        }
+        endMessage={<p className="text-center m-5">{`${endMessage}`}</p>}
         className="flex flex-col-reverse"
         style={{ overflow: `visible` }}
         scrollableTarget="scrollableDiv"
